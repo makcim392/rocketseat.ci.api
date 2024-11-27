@@ -1,0 +1,11 @@
+**/node_modules
+**/.next
+**/dist
+.git
+.yarn
+.dockerignore
+.gitignore
+readme.md
+setup_ssh.sh
+.ssh
+.pre-commit-config.yaml

@@ -1,0 +1,39 @@
+version: '3.7'
+
+services:
+  mysql:
+    image: mysql:8
+    container_name: mysql
+    volumes:
+      - db:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: rocketseat-db
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: root
+    ports:
+      - 3306:3306
+    networks:
+      - primeira-network
+
+  nextjs-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nextjs-app
+    ports:
+      - 3000:3000
+    depends_on:
+      - mysql
+    networks:
+      - primeira-network
+
+networks:
+ primeira-network:
+    name: primeira-network
+    external: true
+    driver: bridge
+
+volumes:
+  db:
