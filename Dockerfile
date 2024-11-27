@@ -1,37 +1,29 @@
-# Build stage
 FROM node:18-alpine3.19 AS builder
 WORKDIR /app
 
-# Enable Corepack to manage Yarn versions
-RUN corepack enable
+# Copy package files first
+COPY package.json ./
+COPY yarn.lock ./
 
-# Copy package.json and yarn.lock
-COPY app/package.json ./
-COPY app/yarn.lock ./
-
-# Install dependencies
-RUN yarn install
+# Install dependencies using npm instead
+RUN npm install
 
 # Copy the rest of the application
-COPY app/ ./
+COPY . .
 
 # Build the application
-RUN yarn build
+RUN npm run build
 
 # Production stage
 FROM node:18-alpine3.19 AS runner
 WORKDIR /app
 
-# Enable Corepack in the production image
-RUN corepack enable
-
-# Copy necessary files from builder
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/.next/static ./.next/static
+# Copy production files
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/package.json ./
+COPY --from=builder /app/node_modules ./node_modules
 
 ENV NODE_ENV=production
-ENV PORT=3000
 EXPOSE 3000
 
-CMD ["node", "server.js"]
+CMD ["npm", "run", "start:prod"]
