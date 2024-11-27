@@ -33,3 +33,5 @@ That generated some issues, as I had to re-adapt the file paths in the docker fi
 In case there is no ```on:``` statement in the .yml file, the pipeline will not be triggered. This is useful in case you want to create a pipeline but not trigger it automatically.
 
 ![alt text](image.png)
+
+Under the hood, the on statement uses a Github Webhook to trigger the pipeline. This is why it is important to have the .yml file in the ```./github/workflows``` folder, otherwise it will not work.
