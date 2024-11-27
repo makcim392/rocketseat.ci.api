@@ -26,3 +26,10 @@ That generated some issues, as I had to re-adapt the file paths in the docker fi
 # Key takeaways
 
 - Make sure to set the indent spaces correctly in the .yml file, otherwise it will not work. The standard is 2 spaces.
+
+
+## On statement and triggering pipeline
+
+In case there is no ```on:``` statement in the .yml file, the pipeline will not be triggered. This is useful in case you want to create a pipeline but not trigger it automatically.
+
+![alt text](image.png)
