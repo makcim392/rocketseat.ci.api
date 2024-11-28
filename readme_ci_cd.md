@@ -4,14 +4,20 @@
 
 This is a simple project to demonstrate how to use Github Actions to build and deploy.
 
+Sending the docker image to the registry is the last step of the pipeline, and it is done only when the pipeline is triggered by a push to the main branch.
 
 ## Best practices
+
+Working with latest tag is not a good practice, as it can lead to unexpected behavior. It is better to use a specific tag, such as the version of the application. 
+
+To take the version, go to the desired commit, open it and take the first 7 characters of the commit hash.
 
 ## Key steps of the project
 
 1. Create a new repository over the ```./api``` folder from the devops project.
 2. Go into actions section in Github and click on ```setup a workflow yourself```.
 3. There will be a .yml file created in the ```./github/workflows``` folder.
+
 
 ![alt text](image.png)
 
